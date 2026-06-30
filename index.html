@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INNOVATIVE SOFTWARE GAMES LTD | Next-Gen Game Studio & Publishers</title>
+    <meta name="description" content="Independent software publishers and game development studio. Crafting innovative digital entertainment and interactive software.">
+    <style>
+        /* DESIGN SYSTEM: NEXT-GEN GAME STUDIO */
+        :root {
+            --bg-base: #07070A;         /* Deep Void Black */
+            --bg-panel: #12121A;        /* Dark Slate Blue */
+            --cyber-blue: #00E5FF;      /* Neon Cyan */
+            --cyber-purple: #B026FF;    /* Electric Purple */
+            --cyber-pink: #FF007F;      /* Neon Pink */
+            --text-main: #F8FAFC;       /* Off-White */
+            --text-muted: #94A3B8;      /* Slate Gray */
+            --border-glow: rgba(0, 229, 255, 0.2);
+            
+            --font-display: 'Orbitron', 'Montserrat', sans-serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+            --font-code: 'Fira Code', 'Courier New', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-main);
+            background-color: var(--bg-base);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Abstract Tech Grid Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        /* Ambient Glows */
+        .glow-blue {
+            position: fixed;
+            top: -20vh; left: -10vw;
+            width: 60vw; height: 60vh;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, transparent 60%);
+            border-radius: 50%;
+            z-index: -2;
+            pointer-events: none;
+            filter: blur(50px);
+        }
+        
+        .glow-purple {
+            position: fixed;
+            bottom: -20vh; right: -10vw;
+            width: 60vw; height: 60vh;
+            background: radial-gradient(circle, rgba(176, 38, 255, 0.1) 0%, transparent 60%);
+            border-radius: 50%;
+            z-index: -2;
+            pointer-events: none;
+            filter: blur(50px);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(7, 7, 10, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-glow);
+            box-shadow: 0 4px 30px rgba(0, 229, 255, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Abstract Gamepad/Infinity Icon */
+        .logo-icon {
+            width: 36px; height: 24px;
+            border: 3px solid var(--cyber-blue);
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+        }
+        .logo-icon::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--cyber-purple);
+            border-radius: 50%;
+            position: absolute;
+            left: 6px;
+            box-shadow: 0 0 10px var(--cyber-purple);
+        }
+        .logo-icon::after {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--cyber-pink);
+            border-radius: 50%;
+            position: absolute;
+            right: 6px;
+            box-shadow: 0 0 10px var(--cyber-pink);
+        }
+
+        .nav-links { display: flex; gap: 35px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px;}
+        .nav-links a { text-decoration: none; color: var(--text-muted); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--cyber-blue); }
+
+        .btn-nav {
+            background: transparent;
+            color: var(--cyber-blue) !important;
+            padding: 10px 24px;
+            border: 1px solid var(--cyber-blue);
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-family: var(--font-display);
+        }
+        .btn-nav:hover { background: var(--cyber-blue); color: var(--bg-base) !important; box-shadow: 0 0 20px rgba(0, 229, 255, 0.4); }
+
+        /* --- HERO SECTION --- */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 5% 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-family: var(--font-code);
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--cyber-blue);
+            padding: 8px 16px;
+            border-left: 3px solid var(--cyber-blue);
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            line-height: 1.05;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+        }
+
+        header p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 550px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-purple));
+            color: var(--text-main);
+            padding: 18px 40px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2);
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(176, 38, 255, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* Abstract Console Graphic */
+        .hero-graphic {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .console-panel {
+            width: 400px; height: 320px;
+            background: rgba(18, 18, 26, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 0 30px rgba(0, 229, 255, 0.1);
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .console-panel::before {
+            content: 'INNOVATIVE_ENGINE_v4';
+            position: absolute; top: -14px; right: 20px;
+            background: var(--bg-base); padding: 0 10px;
+            color: var(--cyber-blue); font-family: var(--font-code); font-size: 0.8rem; font-weight: bold;
+        }
+
+        .screen {
+            flex: 1;
+            background: #000;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .screen-code {
+            position: absolute; top: 10px; left: 10px;
+            font-family: var(--font-code); color: var(--cyber-blue); font-size: 0.7rem; opacity: 0.7;
+        }
+
+        .play-triangle {
+            width: 0; height: 0;
+            border-left: 30px solid var(--cyber-purple);
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            filter: drop-shadow(0 0 15px var(--cyber-purple));
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8;} 50% { transform: scale(1.1); opacity: 1;} }
+
+        /* --- OPERATIONS GRID --- */
+        .section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--text-main);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 16px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--cyber-purple));
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-glow);
+            box-shadow: 0 15px 30px rgba(0, 229, 255, 0.1);
+        }
+        .service-card:hover::before { opacity: 1; }
+
+        .card-icon {
+            font-family: var(--font-code);
+            font-size: 1.8rem;
+            color: var(--cyber-blue);
+            margin-bottom: 25px;
+            display: inline-block;
+            background: rgba(0, 229, 255, 0.1);
+            padding: 12px 18px;
+            border-radius: 8px;
+        }
+
+        .service-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- APP PROMO (CRITICAL FOR GOOGLE PLAY CONSOLE) --- */
+        .app-promo {
+            background: linear-gradient(135deg, var(--bg-panel) 0%, #050508 100%);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 80px 5%;
+            margin: 60px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-promo::after {
+            content: '';
+            position: absolute;
+            right: -100px; bottom: -100px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(176, 38, 255, 0.15) 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .app-text { position: relative; z-index: 1; }
+
+        .app-text h2 {
+            font-family: var(--font-display);
+            font-size: 3.2rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .app-list { list-style: none; margin: 30px 0; }
+        .app-list li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            color: var(--text-muted);
+        }
+        .app-list li::before {
+            content: '>';
+            font-family: var(--font-code);
+            color: var(--cyber-blue);
+            font-weight: bold;
+        }
+
+        /* Mobile Device Mockup for Software/Game Hub */
+        .mockup-phone {
+            width: 100%;
+            max-width: 320px;
+            height: 600px;
+            margin: 0 auto;
+            background: #000;
+            border: 6px solid #222;
+            border-radius: 35px;
+            padding: 15px;
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.15);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 90px; height: 25px;
+            background: #222;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            flex: 1;
+            background: var(--bg-base);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .ui-header {
+            padding: 30px 20px 15px;
+            background: #000;
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--cyber-blue);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            letter-spacing: 2px;
+        }
+
+        .ui-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .game-banner {
+            height: 140px;
+            background: linear-gradient(135deg, #111, #1a0033);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--text-main);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .game-banner span {
+            font-size: 0.7rem; color: var(--cyber-blue); font-family: var(--font-code); letter-spacing: 2px; text-shadow: none; margin-bottom: 5px;
+        }
+
+        .ui-module {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 2px solid var(--cyber-purple);
+        }
+        
+        .ui-module-title { font-family: var(--font-code); font-size: 0.7rem; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
+        .ui-module-val { font-size: 1.05rem; color: var(--text-main); font-weight: bold;}
+
+        .ui-btn {
+            margin-top: auto;
+            background: var(--cyber-blue);
+            color: var(--bg-base);
+            text-align: center;
+            padding: 15px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 4px;
+        }
+
+        /* --- VERIFICATION REGISTRY (EXACT D&B MATCH) --- */
+        .registry-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+        }
+
+        .data-panel {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .data-panel::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--cyber-purple));
+        }
+
+        .data-row {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+        }
+        .data-row:last-child { border: none; margin: 0; padding: 0; }
+
+        .data-label {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            color: var(--cyber-blue);
+            margin-bottom: 5px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .data-value {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-family: var(--font-body);
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: all 0.3s;
+            border-radius: 6px;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--cyber-blue);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #040406;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 80px 5% 40px;
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            color: var(--cyber-blue);
+            font-family: var(--font-display);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 12px; }
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            font-family: var(--font-code);
+        }
+        .footer-col a:hover { color: var(--text-main); }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #555;
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid, .app-promo, .registry-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .hero-graphic { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-blue"></div>
+    <div class="glow-purple"></div>
+
+    <nav>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            INNOVATIVE SOFTWARE
+        </div>
+        <div class="nav-links">
+            <a href="#services">System Design</a>
+            <a href="#publishing">Digital Releases</a>
+            <a href="#registry">Corporate Data</a>
+            <a href="#contact" class="btn-nav">Terminal Login</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="hero-grid">
+            <div>
+                <div class="hero-tag">System Design & Prepackaged Software</div>
+                <h1>Developing the <br><span class="text-gradient">Next Generation</span>.</h1>
+                <p>INNOVATIVE SOFTWARE GAMES LTD is a premier game development studio and software publisher. We build immersive prepackaged software and cutting-edge interactive digital experiences.</p>
+                <a href="#publishing" class="btn-primary">Initialize Core</a>
+            </div>
+            
+            <div class="hero-graphic">
+                <div class="console-panel">
+                    <div class="screen">
+                        <div class="screen-code">
+                            > root/sys/game_engine_v4<br>
+                            > loading assets... [ok]<br>
+                            > compiling logic...
+                        </div>
+                        <div class="play-triangle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="services" class="section">
+        <div class="section-header">
+            <h2>Studio Infrastructure</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="card-icon">{PUB_API}</div>
+                <h3>Software Publishers</h3>
+                <p>Officially licensed Software Publishers. We manage the development, deployment, and distribution of digital applications and games to global app marketplaces.</p>
+            </div>
+            <div class="service-card">
+                <div class="card-icon">&lt;SYS_CORE&gt;</div>
+                <h3>Computer Systems Design</h3>
+                <p>Executing high-level Computer Systems Design and Related Services to architect secure backend environments and scalable multiplayer server structures.</p>
+            </div>
+            <div class="service-card">
+                <div class="card-icon">[PKG_EXE]</div>
+                <h3>Prepackaged Software</h3>
+                <p>Specializing in the creation of Prepackaged software. We deliver polished, consumer-ready digital entertainment that runs flawlessly across mobile platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="publishing" class="section" style="padding-top: 0;">
+        <div class="app-promo">
+            <div class="app-text">
+                <div class="hero-tag" style="border-color: var(--cyber-blue); color: var(--cyber-blue); background: transparent;">Google Play Developer Entity</div>
+                <h2>Innovative Games Hub</h2>
+                <p style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 15px;">
+                    As an official Software Publisher, <strong>INNOVATIVE SOFTWARE GAMES LTD develops and distributes our prepackaged interactive software directly via mobile app stores.</strong>
+                </p>
+                <p style="color: var(--text-muted); line-height: 1.7;">
+                    Our digital portfolio is managed through our proprietary mobile applications. The Google Play ecosystem serves as the primary distribution channel for our mobile games, companion applications, and proprietary software tools designed by our systems design team.
+                </p>
+                
+                <ul class="app-list">
+                    <li>Direct distribution of internally developed mobile games.</li>
+                    <li>Secure in-app purchases and digital licensing verification.</li>
+                    <li>Over-the-air content updates for prepackaged gaming software.</li>
+                    <li>Integration with Google Play Games services for leaderboards.</li>
+                </ul>
+            </div>
+            
+            <div class="mockup-phone">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="ui-header">INNOVATIVE_OS</div>
+                    <div class="ui-content">
+                        
+                        <div class="game-banner">
+                            <span>PROJECT:</span>
+                            NEON HORIZON
+                        </div>
+
+                        <div class="ui-module">
+                            <div class="ui-module-title">PUBLISHER</div>
+                            <div class="ui-module-val" style="color: var(--cyber-blue);">INNOVATIVE SOFTWARE GAMES</div>
+                        </div>
+
+                        <div class="ui-module" style="border-left-color: var(--cyber-pink);">
+                            <div class="ui-module-title">SOFTWARE STATUS</div>
+                            <div class="ui-module-val" style="font-family: var(--font-body); font-weight: normal; color: var(--text-muted);">Version 2.0.4 - Live</div>
+                        </div>
+
+                        <div class="ui-btn">LAUNCH EXECUTABLE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="registry" class="section">
+        <div class="section-header">
+            <h2>Corporate Database Registry</h2>
+        </div>
+        <div class="registry-grid">
+            
+            <div class="data-panel">
+                <div class="data-row">
+                    <span class="data-label">Legal Entity Name</span>
+                    <span class="data-value">INNOVATIVE SOFTWARE GAMES LTD</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Industry Classification Profile</span>
+                    <span class="data-value" style="font-size: 0.95rem; line-height: 1.6;">
+                        • Software Publishers<br>
+                        • Computer Systems Design and Related Services<br>
+                        • Publishing Industries<br>
+                        • Information<br>
+                        • Prepackaged software
+                    </span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Country of Registration</span>
+                    <span class="data-value" style="font-size: 0.95rem;">
+                        United Kingdom
+                    </span>
+                </div>
+                <div class="data-row" style="border: none;">
+                    <span class="data-label">Official Developer Endpoint</span>
+                    <span class="data-value" style="color: var(--cyber-blue);">info@innovativesoftwaregames.info</span>
+                </div>
+            </div>
+
+            <div id="contact">
+                <h3 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase;">System Support</h3>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Contact our development team to report bugs in our prepackaged software, inquire about publishing rights, or request technical support for mobile applications.</p>
+                
+                <form onsubmit="event.preventDefault();">
+                    <input type="text" placeholder="Player Name / License ID" required>
+                    <input type="email" placeholder="Contact Email Address" required>
+                    <textarea placeholder="Describe your software inquiry or support request..." rows="5" required></textarea>
+                    <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer; clip-path: none; border-radius: 8px;">Submit Transmission</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px; font-size: 1.2rem;">
+                    <div class="logo-icon" style="width: 24px; height: 16px; border-width: 2px; box-shadow: none;"></div>
+                    INNOVATIVE SOFTWARE
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Architecting, designing, and publishing next-generation prepackaged software and interactive entertainment.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Digital Platforms</h4>
+                <ul>
+                    <li><a href="#">Google Play Publisher Status</a></li>
+                    <li><a href="#">Report Software Bug</a></li>
+                    <li><a href="#" style="color: var(--text-main); font-weight: bold;">Request Account & Data Deletion</a></li>
+                    <li><a href="#">Game Server Status</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Legal & Compliance</h4>
+                <ul>
+                    <li><a href="#">End User License Agreement (EULA)</a></li>
+                    <li><a href="#">Software Publishing Terms</a></li>
+                    <li><a href="#">Privacy Policy (GDPR)</a></li>
+                    <li><a href="#">In-App Purchase Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 INNOVATIVE SOFTWARE GAMES LTD. Registered in the UK. Systems Operational.
+        </div>
+    </footer>
+
+</body>
+</html>
